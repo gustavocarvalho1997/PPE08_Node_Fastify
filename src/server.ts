@@ -1,45 +1,40 @@
 import { fastify } from 'fastify';
 import { fastifyCors } from '@fastify/cors';
-import { validatorCompiler, serializerCompiler, ZodTypeProvider } from 'fastify-type-provider-zod'
-import { z } from 'zod';
+import { validatorCompiler, serializerCompiler, ZodTypeProvider, jsonSchemaTransform } from 'fastify-type-provider-zod';
+import { fastifySwagger } from '@fastify/swagger';
+import { fastifySwaggerUi } from '@fastify/swagger-ui';
+import { subscribeToEventRoute } from './routes/subscribe-to-event-route';
 
 // Create a Fastify instance
 const app = fastify().withTypeProvider<ZodTypeProvider>();
+
+// Register the compiler
+app.setSerializerCompiler(serializerCompiler);
+app.setValidatorCompiler(validatorCompiler);
 
 // Enable CORS
 app.register(fastifyCors, {
     origin: true,
 });
 
-// Register the compiler
-app.setSerializerCompiler(serializerCompiler);
-app.setValidatorCompiler(validatorCompiler);
-
-// Define a route
-app.post('/subscriptions', {
-    schema: {
-        body: z.object({
-            name: z.string(),
-            email: z.string().email(),
-        }),
-        response: {
-            201: z.object({
-                name: z.string(),
-                email: z.string()
-            })
+// Enable Swagger
+app.register(fastifySwagger, {
+    openapi: {
+        info: {
+            title: 'PPE08_API',
+            version: '0.0.1',
         },
     },
-}, async (request, reply) => {
-    const { name, email } = request.body;
+    transform: jsonSchemaTransform,
+});
 
-    // Save the subscription to the database
+// Enable Swagger UI
+app.register(fastifySwaggerUi, {
+    routePrefix: '/docs',
+});
 
-    return reply.status(201).send({
-        name,
-        email,
-    })
-})
-
+// Register the route
+app.register(subscribeToEventRoute);
 
 // Start the server
 app.listen({port: 3333}).then(() => {
