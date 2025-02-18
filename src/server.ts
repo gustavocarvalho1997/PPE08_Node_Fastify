@@ -4,6 +4,7 @@ import { validatorCompiler, serializerCompiler, ZodTypeProvider, jsonSchemaTrans
 import { fastifySwagger } from '@fastify/swagger';
 import { fastifySwaggerUi } from '@fastify/swagger-ui';
 import { subscribeToEventRoute } from './routes/subscribe-to-event-route';
+import { env } from './env';
 
 // Create a Fastify instance
 const app = fastify().withTypeProvider<ZodTypeProvider>();
@@ -37,6 +38,6 @@ app.register(fastifySwaggerUi, {
 app.register(subscribeToEventRoute);
 
 // Start the server
-app.listen({port: 3333}).then(() => {
+app.listen({port: env.PORT}).then(() => {
     console.log('HTTP server is running!')
 });
