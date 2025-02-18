@@ -1,6 +1,6 @@
 import { fastify } from 'fastify';
 import { fastifyCors } from '@fastify/cors';
-import { validatorCompiler, serializerCompiler, ZodTypeProvider, jsonSchemaTransform } from 'fastify-type-provider-zod';
+import { validatorCompiler, serializerCompiler, type ZodTypeProvider, jsonSchemaTransform } from 'fastify-type-provider-zod';
 import { fastifySwagger } from '@fastify/swagger';
 import { fastifySwaggerUi } from '@fastify/swagger-ui';
 import { subscribeToEventRoute } from './routes/subscribe-to-event-route';
