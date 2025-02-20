@@ -2,12 +2,22 @@ POST http://localhost:3333/subscriptions
 Content-Type: application/json
 
 {
-    "name": "Irene Urzaizz",
-    "email": "irene@hotmail.com"
+    "name": "Usuário Indicado7",
+    "email": "indicado7@hotmail.com",
+    "referrer": "ab269025-ad61-46ef-bc63-ab7faf81031d"
 }
 
 ###
-GET http://localhost:3333/invites/clarice123
+GET http://localhost:3333/invites/5258d73c-4374-45bc-8fca-1a6487fdcc2e
 
 ###
-GET http://localhost:3333/subscribers/clarice123/ranking/clicks
+GET http://localhost:3333/subscribers/5258d73c-4374-45bc-8fca-1a6487fdcc2e/ranking/clicks
+
+###
+GET http://localhost:3333/subscribers/5258d73c-4374-45bc-8fca-1a6487fdcc2e/ranking/count
+
+###
+GET http://localhost:3333/subscribers/5258d73c-4374-45bc-8fca-1a6487fdcc2e/ranking/position
+
+###
+GET http://localhost:3333/ranking
