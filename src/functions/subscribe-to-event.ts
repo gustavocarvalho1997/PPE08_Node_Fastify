@@ -14,11 +14,11 @@ export async function subscribeToEvent({
     const subscribers = await db
         .select()
         .from(subscriptions)
-        .where(eq(subscriptions.email, email))
+        .where(eq(subscriptions.email, email));
 
-        if (subscribers.length > 0) {
-            return { subscriberId: subscribers[0].id };
-        }
+    if (subscribers.length > 0) {
+        return { subscriberId: subscribers[0].id };
+    }
 
     // Save the subscription to the database
     const result = await db
